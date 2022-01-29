@@ -28,4 +28,22 @@ router.post("/", (req, res) => {
     });
 });
 
+//Search Post by ID
+router.get("/:id", (req, res) => {
+  Posts.find({ _id: req.params.id })
+    .then((post) => {
+      res.json(post);
+    })
+    .catch((err) => console.log(err));
+});
+
+//Delete Post from Database
+router.delete("/:id", (req, res) => {
+  Posts.remove({ _id: req.params.id })
+    .then((post) => {
+      res.json(post);
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;
