@@ -1,17 +1,23 @@
 const express = require("express");
+const app = express();
 require("dotenv").config();
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-const app = express();
+//body parser middleware
+app.use(bodyParser.json());
 
-//Routes
+//import routes
+const postRouter = require("./routes/posts");
+
+//use routes
+app.use("/posts", postRouter);
 
 app.get("/", (req, res) => {
-  res.send("Working!!!");
+  res.send("Hello World");
 });
 
-//DB Connect
-
+//DB Connection
 mongoose.connect(process.env.DB_CONNECT, () => {
   console.log("Connected to DB");
 });
