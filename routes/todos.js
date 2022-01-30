@@ -17,13 +17,13 @@ router.post("/add/todos", (req, res) => {
     isComplete: req.body.isComplete,
   });
   todos.save();
-  res.send(todos);
+  res.status(200).send(todos);
 });
 
 //Delete Todos from Database
 router.delete("/delete/todos/:id", (req, res) => {
   Todos.findByIdAndDelete(req.params.id);
-  res.send("Deleted");
+  res.status(200).send("Deleted");
 });
 
 //Complete Todos from Database
@@ -32,7 +32,7 @@ router.get("/complete/todo/:id", async (req, res) => {
   const todo = await Todos.findById({ _id: req.params.id });
   todo.isComolete = !todo.isComolete;
   todo.save();
-  res.json(todo);
+  res.status(200).json(todo);
 });
 
 module.exports = router;
