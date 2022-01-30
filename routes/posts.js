@@ -3,7 +3,7 @@ const router = express.Router();
 //check if user is logged in
 const verifyToken = require("./verifyToken");
 
-const Posts = require("../models/posts");
+const Posts = require("../models/Posts");
 
 //get All Posts from Database
 //restrict access to this route to only logged in users
