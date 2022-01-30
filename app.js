@@ -18,11 +18,17 @@ const postRouter = require("./routes/posts");
 
 const authRouter = require("./routes/auth");
 
+//import Totos routes
+
+const todosRouter = require("./routes/todos");
+
 //auth Middleware
 app.use("/api/user", authRouter);
 
 //use routes
 app.use("/posts", postRouter);
+
+app.use("/", todosRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
