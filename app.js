@@ -7,8 +7,15 @@ const bodyParser = require("body-parser");
 //body parser middleware
 app.use(bodyParser.json());
 
-//import routes
+//import posts routes
 const postRouter = require("./routes/posts");
+
+//import auth routes
+
+const authRouter = require("./routes/auth");
+
+//auth Middleware
+app.use("/api/user", authRouter);
 
 //use routes
 app.use("/posts", postRouter);
