@@ -7,7 +7,7 @@ const Posts = require("../models/Posts");
 
 //get All Posts from Database
 //restrict access to this route to only logged in users
-router.get("/", verifyToken, (req, res) => {
+router.get("/", (req, res) => {
   Posts.find()
     .then((posts) => {
       res.json(posts);
