@@ -42,11 +42,20 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { error } = validateLogin(req.body);
 
   //if error, return 400 with error message
   if (error) return res.status(400).send(error.details[0].message);
+
+  //check if user already exists
+  const user = await Users.findOne({ email: req.body.email });
+  if (!user) return res.status(400).send("email not found");
+
+  //check password
+  const validPass = await bcrypt.compare(req.body.password, user.password);
+  if (!validPass) return res.status(400).send("invalid password");
+
   res.send("Login");
 });
 
