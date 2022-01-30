@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
+//check if user is logged in
+const verifyToken = require("./verifyToken");
 
 const Posts = require("../models/posts");
 
 //get All Posts from Database
-router.get("/", (req, res) => {
+//restrict access to this route to only logged in users
+router.get("/", verifyToken, (req, res) => {
   Posts.find()
     .then((posts) => {
       res.json(posts);
