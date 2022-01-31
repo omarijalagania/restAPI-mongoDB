@@ -21,9 +21,9 @@ router.post("/add/todos", (req, res) => {
 });
 
 //Delete Todos from Database
-router.delete("/delete/todos/:id", (req, res) => {
-  Todos.findByIdAndDelete(req.params.id);
-  res.status(200).send("Deleted");
+router.delete("/delete/todos/:id", async (req, res) => {
+  const todo = await Todos.findByIdAndDelete(req.params.id);
+  res.status(200).json(todo);
 });
 
 //Complete Todos from Database
