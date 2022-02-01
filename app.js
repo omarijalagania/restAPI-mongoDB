@@ -22,6 +22,10 @@ const authRouter = require("./routes/auth");
 
 const todosRouter = require("./routes/todos");
 
+//import Tinder routes
+
+const tinderRouter = require("./routes/tinder");
+
 //auth Middleware
 app.use("/api/user", authRouter);
 
@@ -29,6 +33,10 @@ app.use("/api/user", authRouter);
 app.use("/posts", postRouter);
 
 app.use("/", todosRouter);
+
+//tinder
+
+app.use("/api/tinder", tinderRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
