@@ -26,6 +26,10 @@ const todosRouter = require("./routes/todos");
 
 const tinderRouter = require("./routes/tinder");
 
+//Uber routes
+
+const UberRoutes = require("./routes/uber");
+
 //auth Middleware
 app.use("/api/user", authRouter);
 
@@ -41,6 +45,10 @@ app.use("/api/tinder", tinderRouter);
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
+//uber
+
+app.use("/api/", UberRoutes);
 
 //DB Connection
 mongoose.connect(process.env.DB_CONNECT, () => {
