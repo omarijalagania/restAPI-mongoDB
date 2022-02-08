@@ -18,4 +18,12 @@ router.post("/uber/cart", async (req, res) => {
   res.status(200).send(uberCart);
 });
 
+//Post uber cart
+
+router.delete("/uber/cart/delete/items", async (req, res) => {
+  const uberCart = await Uber.deleteMany();
+
+  res.status(200).send(uberCart);
+});
+
 module.exports = router;
