@@ -5,9 +5,9 @@ const cors = require("cors");
 app.use(cors());
 
 require("dotenv").config();
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
+const bodyParser = require("body-parser");
+const connectDB = require("./config/db");
 //body parser middleware
 app.use(bodyParser.json());
 
@@ -51,9 +51,7 @@ app.get("/", (req, res) => {
 app.use("/api/", UberRoutes);
 
 //DB Connection
-mongoose.connect(process.env.DB_CONNECT, () => {
-  console.log("Connected to DB");
-});
+connectDB();
 
 //Listening to port 5000
 app.listen(8080);

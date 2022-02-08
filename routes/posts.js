@@ -16,8 +16,8 @@ router.get("/", (req, res) => {
 });
 
 //Add Post to Database
-router.post("/", (req, res) => {
-  const post = new Posts({
+router.post("/", async (req, res) => {
+  const post = await new Posts({
     title: req.body.title,
     description: req.body.description,
   });

@@ -11,8 +11,8 @@ router.get("/todos", (req, res) => {
 });
 
 //Put Todos to Database
-router.post("/add/todos", (req, res) => {
-  const todos = new Todos({
+router.post("/add/todos", async (req, res) => {
+  const todos = await new Todos({
     title: req.body.title,
     isComplete: req.body.isComplete,
   });
