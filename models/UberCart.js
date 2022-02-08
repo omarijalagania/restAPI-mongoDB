@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const UberSchema = new mongoose.Schema({
   items: [
     {
-      name: {
+      title: {
         type: String,
         required: true,
       },
