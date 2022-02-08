@@ -12,7 +12,6 @@ router.get("/uber/cart/items", (req, res) => {
 //Post uber cart
 
 router.post("/uber/cart", async (req, res) => {
-  console.log(req.body.items);
   const uberCart = await new Uber(req.body);
   uberCart.save();
   res.status(200).send(uberCart);
