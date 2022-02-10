@@ -31,14 +31,7 @@ router.post("/register", (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashedPassword,
-    cart: [
-      {
-        title: "",
-        description: "",
-        price: "",
-        image: "",
-      },
-    ],
+    cart: [{}],
   });
   user
     .save()
@@ -67,7 +60,23 @@ router.post("/login", async (req, res) => {
   //create and assign a token
 
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-  res.header("auth-token", token).send({ token: token });
+  res.header("auth-token", token).send({ token: token, cart: req.body.cart });
+});
+
+//get users cart
+router.get("/cart/:id", async (req, res) => {
+  const user = await Users.findOne({ _id: req.params.id });
+  res.send(user.cart);
+});
+
+//post product to users cart
+
+router.post("/cart/set/:id", async (req, res) => {
+  const user = await Users.findOne({ _id: req.params.id });
+
+  user.cart.push(req.body);
+  user.save();
+  res.send(user);
 });
 
 module.exports = router;
