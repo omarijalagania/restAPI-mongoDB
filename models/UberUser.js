@@ -15,22 +15,24 @@ const UberUserSchema = new Schema({
     type: String,
     required: true,
   },
-  cart: [
-    {
-      title: {
-        type: String,
+  cart: {
+    items: [
+      {
+        title: {
+          type: String,
+        },
+        description: {
+          type: String,
+        },
+        price: {
+          type: String,
+        },
+        image: {
+          type: String,
+        },
       },
-      description: {
-        type: String,
-      },
-      price: {
-        type: String,
-      },
-      image: {
-        type: String,
-      },
-    },
-  ],
+    ],
+  },
 });
 
 module.exports = mongoose.model("UberUser", UberUserSchema);

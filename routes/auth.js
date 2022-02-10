@@ -31,7 +31,9 @@ router.post("/register", (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashedPassword,
-    cart: [{}],
+    cart: {
+      items: [{}],
+    },
   });
   user
     .save()
@@ -74,9 +76,9 @@ router.get("/cart/:id", async (req, res) => {
 router.post("/cart/set/:id", async (req, res) => {
   const user = await Users.findOne({ _id: req.params.id });
 
-  user.cart.push(req.body);
+  user.cart.items.push(...req.body);
   user.save();
-  res.send(user);
+  res.send(user.cart);
 });
 
 module.exports = router;

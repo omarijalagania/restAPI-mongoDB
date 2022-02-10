@@ -22,22 +22,16 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  cart: [
-    {
-      title: {
-        type: String,
+  cart: {
+    items: [
+      {
+        title: String,
+        description: String,
+        price: String,
+        image: String,
       },
-      description: {
-        type: String,
-      },
-      price: {
-        type: String,
-      },
-      image: {
-        type: String,
-      },
-    },
-  ],
+    ],
+  },
 });
 
 module.exports = mongoose.model("Users", userSchema);
