@@ -1,26 +1,19 @@
-const mongoose = require("mongoose");
+const mongoose = requare("mongoose");
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const UberUserSchema = new Schema({
   name: {
     type: String,
     required: true,
-    min: 6,
+  },
+  password: {
+    type: String,
+    required: true,
   },
 
   email: {
     type: String,
     required: true,
-    min: 6,
-  },
-  password: {
-    type: String,
-    required: true,
-    min: 6,
-    max: 1024,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
   },
   cart: [
     {
@@ -40,4 +33,4 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("UberUser", UberUserSchema);

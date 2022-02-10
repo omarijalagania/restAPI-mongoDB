@@ -31,6 +31,14 @@ router.post("/register", (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashedPassword,
+    cart: [
+      {
+        title: "",
+        description: "",
+        price: "",
+        image: "",
+      },
+    ],
   });
   user
     .save()
