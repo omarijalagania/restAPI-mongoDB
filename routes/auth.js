@@ -84,4 +84,12 @@ router.post("/cart/set/:id", async (req, res) => {
   res.send(user.cart);
 });
 
+router.post("/cart/clear/:id", async (req, res) => {
+  const user = await Users.findOne({ _id: req.params.id });
+
+  user.cart.items.splice(0, user.cart.items.length);
+  user.save();
+  res.send(user.cart);
+});
+
 module.exports = router;
