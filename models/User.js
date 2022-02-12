@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema({
         image: String,
         description: String,
         price: String,
+        id: String,
       },
     ],
   },

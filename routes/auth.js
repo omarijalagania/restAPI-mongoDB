@@ -100,9 +100,9 @@ router.post("/cart/set/:id", async (req, res) => {
 router.post("/favorites/set/:id", async (req, res) => {
   try {
     const user = await Users.findOne({ _id: req.params.id });
-    user.favorites.push(...req.body);
+    user.favorites.items.push(...req.body);
     user.save();
-    res.send(user.favorites);
+    res.send(user.favorites.items);
   } catch (error) {
     console.log(error);
   }
@@ -113,6 +113,22 @@ router.post("/favorites/set/:id", async (req, res) => {
 router.get("/favorites/:id", async (req, res) => {
   const user = await Users.findOne({ _id: req.params.id });
   res.send(user.favorites);
+});
+
+//remove from favorites
+
+router.delete("/favorites/:userId/:id", async (req, res) => {
+  try {
+    const post = await Users.findOne({ _id: req.params.userId });
+    const edited = post.favorites.items.filter(
+      (item) => item.id !== req.params.id
+    );
+    post.favorites.items = edited;
+    post.save();
+    res.send(post.favorites.items);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/cart/clear/:id", async (req, res) => {
