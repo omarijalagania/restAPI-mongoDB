@@ -95,6 +95,26 @@ router.post("/cart/set/:id", async (req, res) => {
   }
 });
 
+//post Favorite restaurant to db
+
+router.post("/favorites/set/:id", async (req, res) => {
+  try {
+    const user = await Users.findOne({ _id: req.params.id });
+    user.cart.favorites.push(...req.body);
+    user.save();
+    res.send(user.cart);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//get Favorites from db
+
+router.get("/favorites/:id", async (req, res) => {
+  const user = await Users.findOne({ _id: req.params.id });
+  res.send(user.favorites);
+});
+
 router.post("/cart/clear/:id", async (req, res) => {
   const user = await Users.findOne({ _id: req.params.id });
 
