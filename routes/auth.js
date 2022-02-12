@@ -100,9 +100,9 @@ router.post("/cart/set/:id", async (req, res) => {
 router.post("/favorites/set/:id", async (req, res) => {
   try {
     const user = await Users.findOne({ _id: req.params.id });
-    user.cart.favorites.push(...req.body);
+    user.favorites.push(...req.body);
     user.save();
-    res.send(user.cart);
+    res.send(user.favorites);
   } catch (error) {
     console.log(error);
   }
