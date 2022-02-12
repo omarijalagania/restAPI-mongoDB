@@ -74,14 +74,25 @@ router.get("/cart/:id", async (req, res) => {
   res.send(user.cart);
 });
 
+//get users orders
+
+router.get("/orders/:id", async (req, res) => {
+  const user = await Users.findOne({ _id: req.params.id });
+  res.send(user.orders);
+});
+
 //post product to users cart
 
 router.post("/cart/set/:id", async (req, res) => {
-  const user = await Users.findOne({ _id: req.params.id });
-
-  user.cart.items.push(...req.body);
-  user.save();
-  res.send(user.cart);
+  try {
+    const user = await Users.findOne({ _id: req.params.id });
+    user.cart.items.push(...req.body);
+    user.orders.items.push(...req.body);
+    user.save();
+    res.send(user.cart);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router.post("/cart/clear/:id", async (req, res) => {

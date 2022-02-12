@@ -32,6 +32,16 @@ const userSchema = new mongoose.Schema({
       },
     ],
   },
+  orders: {
+    items: [
+      {
+        title: String,
+        description: String,
+        price: String,
+        image: String,
+      },
+    ],
+  },
 });
 
 module.exports = mongoose.model("Users", userSchema);
