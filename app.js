@@ -1,57 +1,61 @@
-const express = require("express");
-const app = express();
+const express = require("express")
+const app = express()
 
-const cors = require("cors");
-app.use(cors());
+const cors = require("cors")
+app.use(cors())
 
-require("dotenv").config();
+require("dotenv").config()
 
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
+const bodyParser = require("body-parser")
+const connectDB = require("./config/db")
 //body parser middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
 //import posts routes
-const postRouter = require("./routes/posts");
+const postRouter = require("./routes/posts")
 
 //import auth routes
 
-const authRouter = require("./routes/auth");
+const authRouter = require("./routes/auth")
 
 //import Totos routes
 
-const todosRouter = require("./routes/todos");
+const todosRouter = require("./routes/todos")
 
 //import Tinder routes
 
-const tinderRouter = require("./routes/tinder");
+const tinderRouter = require("./routes/tinder")
 
 //Uber routes
 
-const UberRoutes = require("./routes/uber");
+const UberRoutes = require("./routes/uber")
+
+const Docs = require("./routes/doc")
 
 //auth Middleware
-app.use("/api/user", authRouter);
+app.use("/api/user", authRouter)
 
 //use routes
-app.use("/posts", postRouter);
+app.use("/posts", postRouter)
 
-app.use("/", todosRouter);
+app.use("/", todosRouter)
 
 //tinder
 
-app.use("/api/tinder", tinderRouter);
+app.use("/api/tinder", tinderRouter)
+
+app.use("/", Docs)
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+  res.send("Hello World")
+})
 
 //uber
 
-app.use("/api/", UberRoutes);
+app.use("/api/", UberRoutes)
 
 //DB Connection
-connectDB();
+connectDB()
 
 //Listening to port 5000
-app.listen(8080);
+app.listen(8080)
