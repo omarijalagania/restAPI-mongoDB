@@ -1,15 +1,18 @@
 const express = require("express")
 const app = express()
-
+const path = require("path")
 const cors = require("cors")
+const fileUpload = require("./utils/image-upload")
 app.use(cors())
 
 require("dotenv").config()
+app.use("/images", express.static(path.join(__dirname, "images")))
 
 const bodyParser = require("body-parser")
 const connectDB = require("./config/db")
 //body parser middleware
 app.use(bodyParser.json())
+app.use(fileUpload.upload.single("image"))
 
 //import posts routes
 const postRouter = require("./routes/posts")
@@ -32,6 +35,8 @@ const UberRoutes = require("./routes/uber")
 
 const Docs = require("./routes/doc")
 
+const feedRoute = require("./routes/feed")
+
 //auth Middleware
 app.use("/api/user", authRouter)
 
@@ -39,7 +44,7 @@ app.use("/api/user", authRouter)
 app.use("/posts", postRouter)
 
 app.use("/", todosRouter)
-
+app.use("/apiv2", feedRoute)
 //tinder
 
 app.use("/api/tinder", tinderRouter)
