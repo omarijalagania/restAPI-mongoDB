@@ -4,6 +4,7 @@ const path = require("path")
 const cors = require("cors")
 const fileUpload = require("./utils/image-upload")
 app.use(cors())
+const { Server } = require("socket.io")
 
 require("dotenv").config()
 app.use("/images", express.static(path.join(__dirname, "images")))
@@ -63,4 +64,30 @@ app.use("/api/", UberRoutes)
 connectDB()
 
 //Listening to port 5000
-app.listen(8080)
+
+const server = app.listen(8080)
+
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  },
+})
+
+io.on("connection", (socket) => {
+  console.log(socket.id)
+
+  socket.on("join", (data) => {
+    socket.join(data)
+    console.log(`user with id ${data} joined`)
+  })
+
+  socket.on("send_message", (data) => {
+    console.log(data)
+    socket.to(data.room).emit("receive_message", data)
+  })
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected")
+  })
+})
